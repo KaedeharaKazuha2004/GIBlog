@@ -1,4 +1,5 @@
 django
+django-ckeditor
 asgiref
 python-dateutil
 six
