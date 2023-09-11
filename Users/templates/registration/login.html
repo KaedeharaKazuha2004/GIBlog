@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<title>Login your account</title>
+<h1>Login</h1>
+<br/><br/>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+       <input type="text" class="form-control" name="username" placeholder="Username">
+    </div>
+    <div class="mb-3">
+        <input type="password" class="form-control" name="password" placeholder="Password">
+     </div>
+    <button class="btn btn-primary">Login</button>
+    <br/>
+    First time to visit the blog and want to share your first think? <a href="{% url 'register' %}">Register</a> here to get started!
+</form>
+{% endblock %}

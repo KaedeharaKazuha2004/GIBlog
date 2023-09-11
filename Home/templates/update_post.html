@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<title>Edit your post</title>
+<h1>Edit Post</h1>
+<br/><br/>
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+               {{ form.media }}
+               {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-info" >Post</button>
+        </form>
+    {% else %}
+        You are not the author of this blog, so you cannot edit it
+    {% endif %}
+{% else %}
+This page only allows users that already login to. Please login to continue.
+{% endif %}
+{% endblock %}

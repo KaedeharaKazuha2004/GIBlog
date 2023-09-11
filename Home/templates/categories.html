@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if category_posts %}
+<title>Category: {{ cats }}</title>
+<h2>{{ cats }}</h2>
+<hr>
+<ul>
+    {% for post in category_posts %}
+        <li><a href="{% url 'article-detail' post.pk %}">{{post.title}}</a> - {{post.author.first_name}} {{post.author.last_name}} - {{post.author.email}} | {{post.post_date}} | Category: <a href="{% url 'category' post.category %}">{{post.category}}</a>
+        {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}
+            | <a href="{% url 'update_post' post.pk %}">Edit</a> | <a href="{% url 'delete_post' post.pk %}">Delete</a>
+        {% endif %}
+        {% endif %} 
+        <br/>
+        Title tag: {{post.title_tag}}</li>
+        <hr>
+    {% endfor %}
+</ul>
+{% else %}
+<title>Category: {{cats}}</title>
+<h2>404</h2>
+<h3>Looks like you are Qiqi in Genshin Impact...</h3>
+This category has no post in it. Try posting your blog with this one and check to see if it is available.
+{% endif %}
+{% endblock %}

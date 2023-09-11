@@ -1,0 +1,8 @@
+django
+uvicorn
+django-ckeditor
+asgiref
+python-dateutil
+six
+sqlparse
+tzdata

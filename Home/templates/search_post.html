@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+   <title>Search results: {{ searched }}</title>
+   <div class="card border-info mb-3">
+      <div class="card-header">
+         {% if searched %}
+             <h4>Search results for {{ searched }}</h4>
+         {% else %}
+             <h4>Type your keyword to search something you want to lookup</h4>
+         {% endif %}
+      </div>
+      <div class="card-body">
+         <form class="d-flex" role="search" method="POST" action="{% url 'search' %}">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+            <button class="btn btn-outline-info" type="submit">Search</button>
+         </form>
+      </div>
+    </div>
+   {% if searched %}
+      {% for post in post %}
+      <li><a href="{% url 'article-detail' post.pk %}">{{post.title}}</a> - {{post.author.first_name}} {{post.author.last_name}} - {{post.author.email}} | {{post.post_date}} | Category: <a href="{% url 'category' post.category %}">{{post.category}}</a>
+         {% if user.is_authenticated %}
+         {% if user.id == post.author.id %}
+             | <a href="{% url 'update_post' post.pk %}">Edit</a> | <a href="{% url 'delete_post' post.pk %}">Delete</a>
+         {% endif %}
+         {% endif %} 
+         <br/>
+         Title tag: {{post.title_tag}}</li>
+         <hr>
+      {% endfor %}
+   {% endif %}
+{% endblock %}

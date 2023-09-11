@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<title>Add your comment</title>
+<h1>Add comment</h1>
+<br/><br/>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+    {{ form.media }}
+    {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-info" >Post</button>
+</form>
+{% endblock %}

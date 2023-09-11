@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<title>{{post.title}}</title>
+<h1>{{post.title}}</h1>
+<small>By: {{post.author.first_name}} {{post.author.last_name}} | {{post.post_date}} | Category: {{post.category}}</small>
+{% if user.is_authenticated %}
+ {% if user.id == post.author.id %}
+   | <a href="{% url 'update_post' post.pk %}">Edit</a> | <a href="{% url 'delete_post' post.pk %}">Delete</a>
+ {% endif %}
+{% endif %}
+<br/>
+<hr>
+<br/>
+<br/>
+{{post.body | safe}}
+<br/><br/>
+<a href="{% url 'Home' %}" class="btn btn-dark">Back</a>
+<hr>
+<form action="{% url 'like_post' post.pk %}" method="POST">
+  {% csrf_token %}
+  {% if user.is_authenticated %}
+  {% if liked %}
+  <button type="submit" name='post_id' value="{{post.id}}" class="btn btn-danger btn-sm">Unlike</button>
+  {% else %} 
+  <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-info btn-sm">Like</button>
+  {% endif %} 
+  {% else %}
+  Required login to like a post - <a href="{% url 'login' %}">Login</a> now
+  {% endif %}
+  | {{total_likes}} likes
+</form>
+<hr>
+<h4>About the maintainer's blog</h4>
+<br/>
+<div class="card border-dark mb-3">
+  <div class="row g-0">
+    <div class="col-md-2">
+      <img src="{% static 'FQKn9E3XMAMY4JIprofile_pic_1_resized.jpg' %}" class="img-fluid rounded-start" width="256" height="256">
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title">Vũ Đức Thắng</h5>
+        <p class="card-text">
+          <p>I am currently a K48 student learning Computer Science at Can Tho University.</p>
+          <p>My hobby: learning code, reading books and playing Genshin Impact</p>
+          <p>I make this blog in order to make the space to share your ideas, tooltips and guides about Genshin Impact!</p>
+        </p>
+        <p class="small text-muted">
+          <a href="https://www.facebook.com/hoanghieu.vu.3576/">Facebook</a> |
+          <a href="https://twitter.com/Scorbun96857469">Twitter</a> |
+          <a href="https://www.instagram.com/victinimi/">Instagram</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<h4>Comments</h4>
+<br/>
+{% if not post.comments.all %}
+Be the first one to share your think about this post by <a href="{% url 'add_comment' post.pk %}">adding your comment right here</a>.
+{% else %}
+  {% for comment in post.comments.all %}
+    <b>{{comment.name}} - {{comment.date_added}}</b>
+    <br/>
+    {{comment.body | safe}}
+    <br/><br/>
+  {% endfor %}
+  <a href="{% url 'add_comment' post.pk %}">Add comment</a>
+{% endif %}
+{% endblock %}

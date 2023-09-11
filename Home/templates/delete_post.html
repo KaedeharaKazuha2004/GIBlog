@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<title>Delete your post</title>
+{% if user.is_authenticated %}
+{% if user == post.author %}
+<h1>You are about to delete: {{post.title}}</h1>
+<br/><br/>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+    <p>This cannot be <b>undone</b>. Only as a last resort. Click <span style="color:red">Delete</span> to continue or go back by clicking Cancel instead.</p>
+    </div>
+    <button class="btn btn-danger" >Delete</button> | <a href="{% url 'Home' %}">Cancel</a>
+</form>
+{% else %}
+Only the author of this blog can delete. Please contact the helpdesk if you think this is wrong
+{% endif %}
+{% else %}
+This page only allows users that already login to. Please login to continue.
+{% endif %}
+{% endblock %}
