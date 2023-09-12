@@ -1,4 +1,5 @@
 Django
+uvicorn
 django-ckeditor
 asgiref
 python-dateutil
