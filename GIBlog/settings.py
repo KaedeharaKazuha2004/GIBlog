@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$v53%0w1x#ul%$q%$gv)5)s$hns6#g)8&u0d8v7+mk-=x572i&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['giblog-1-w0099295.deta.app', 'localhost', '.vercel.app']
+ALLOWED_HOSTS = ['giblog-1-w0099295.deta.app', 'localhost', '.vercel.app', 'now.sh']
 
 
 # Application definition
@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'GIBlog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'RzXVFMHBa0rEtoxeTb78',
+        'HOST': 'containers-us-west-73.railway.app',
+        'PORT': '5519',
     }
 }
 
