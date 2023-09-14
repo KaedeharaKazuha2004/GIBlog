@@ -4,7 +4,7 @@ from django.conf import settings
 from . import views
 from .views import HomeView, ArticleDetailView, AddPostView, DeletePostView, CategoryView, CategoryListView, LikeView, UpdatePostView, AboutMaintainerBlog, AddCommentView, Search, SocialMediaLinks
 urlpatterns = [
-    path('Home/', HomeView.as_view(), name="Home"),
+    path('', HomeView.as_view(), name="Home"),
     path('article/<int:pk>', ArticleDetailView.as_view(), name="article-detail"),
     path('add_post/', AddPostView.as_view(), name="add_post"),
     path('article/edit/<int:pk>', UpdatePostView.as_view(), name="update_post"),
