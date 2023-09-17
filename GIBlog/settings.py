@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$v53%0w1x#ul%$q%$gv)5)s$hns6#g)8&u0d8v7+mk-=x572i&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'Home',
     'Users',
     'ckeditor',
+    'ckeditor_uploader',
+    'whitenoise.runserver_nostatic',
 ]
-
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'GIBlog.urls'
@@ -79,12 +82,8 @@ WSGI_APPLICATION = 'GIBlog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'RzXVFMHBa0rEtoxeTb78',
-        'HOST': 'containers-us-west-73.railway.app',
-        'PORT': '5519',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -138,3 +137,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'Home'
 LOGOUT_REDIRECT_URL = 'Home'
+CKEDITOR_CONFIGS = {
+    'default':{
+        'toolbar': 'full',
+        'width': 'auto',
+        'extraPlugins': ','.join(
+        [
+            'html5video', 'youtube',
+        ]),
+        },
+
+}
+
+
+STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
+
 <title>{{post.title}}</title>
 <h1>{{post.title}}</h1>
 <small>By: {{post.author.first_name}} {{post.author.last_name}} | {{post.post_date}} | Category: {{post.category}}</small>
@@ -22,9 +24,9 @@
   {% if user.is_authenticated %}
   {% if liked %}
   <button type="submit" name='post_id' value="{{post.id}}" class="btn btn-danger btn-sm">Unlike</button>
-  {% else %} 
+  {% else %}
   <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-info btn-sm">Like</button>
-  {% endif %} 
+  {% endif %}
   {% else %}
   Required login to like a post - <a href="{% url 'login' %}">Login</a> now
   {% endif %}
